@@ -1,0 +1,46 @@
+# Install Terraform on Ubuntu 22.04|20.04 |18.04
+# Method 1: Install Terraform from APT repository
+# First, install repository addition dependencies
+
+sudo apt update
+sudo apt install  software-properties-common gnupg2 curl
+
+# Now import repository GPG key 
+# With the key imported now add Hashicorp repository to your Ubuntu system
+
+curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor > hashicorp.gpg
+sudo install -o root -g root -m 644 hashicorp.gpg /etc/apt/trusted.gpg.d/
+# Ubuntu 20.04/18.04
+sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+# Now install terraform on your Ubuntu 22.04|20.04|18.04 system
+sudo apt update
+sudo apt install terraform
+# Check the version of terraform installed on your system
+terraform --version
+
+==========================================================
+# Method 2: Install Terraform Manually
+sudo apt update
+sudo apt install wget unzip
+
+# Then download the latest terraform archive
+TER_VER=`curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest | grep tag_name | cut -d: -f2 | tr -d \"\,\v | awk '{$1=$1};1'`
+wget https://releases.hashicorp.com/terraform/${TER_VER}/terraform_${TER_VER}_linux_amd64.zip
+
+# Once downloaded, extract the archive
+unzip terraform_${TER_VER}_linux_amd64.zip
+Archive:  terraform_1.0.11_linux_amd64.zip
+  inflating: terraform
+  
+#This will create a terraform binary file on your working directory. Move this file to the directory/usr/local/bin.  
+sudo mv terraform /usr/local/bin/
+
+# This will make the tool accessible to all user accounts
+ which terraform
+/usr/local/bin/terraform
+# Confirm the version installed
+terraform version
+Terraform v1.0.11
+on linux_amd64
+# Verify that the tool works
+ terraform
