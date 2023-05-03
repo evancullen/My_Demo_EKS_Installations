@@ -1,1 +1,34 @@
+first we install kubectl client
+https://kubernetes.io/docs/tasks/tools/ 
+=======================================
+
+secondly we install kind
+Validate by running ( kind)
 https://kind.sigs.k8s.io/docs/user/quick-start/#installation
+
+Setup Kubernetes Cluster with KIND
+Download  Cluster Configurations and Create  a 3 Node Kubernetes Cluster as
+============================================================================
+git clone https://github.com/initcron/k8s-code.git
+cd k8s-code/helper/kind/kind 
+create cluster --config kind-three-node-cluster.yaml
+
+Validate 
+========
+kind get clusters
+kubectl cluster-info --context kind-kind
+kubectl get nodes
+
+Setup Visualiser 
+==================
+cd ~
+git clone  https://github.com/schoolofdevops/kube-ops-view
+kubectl apply -f kube-ops-view/deploy/
+To access the visualiser, visit  http://IPADDRESS:32000 ( where replace IPADDRESS with the actual hostname or IP of the docker host).
+You shall see a visualiser similar to the following loaded on the browser.
+
+Clean Up
+========
+
+kind delete clusters
+
